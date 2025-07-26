@@ -1,4 +1,6 @@
 # terminaladmin
+Appnavn: SmartHosting
+Port: 8022
 Admin system for pure terminal admin
 
 
