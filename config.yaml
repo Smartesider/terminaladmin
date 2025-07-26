@@ -1,0 +1,117 @@
+# SkyDash Terminal Admin Configuration
+
+# Application settings
+app:
+  name: "SkyDash Terminal Admin"
+  version: "1.0.0"
+  debug: false
+  
+# Database configuration
+database:
+  host: "localhost"
+  port: 5432
+  database: "skyhost"
+  username: "skyhost"
+  password: "Klokken!12!?!"
+  pool_size: 10
+  max_overflow: 20
+
+# Authentication settings
+auth:
+  session_timeout: 3600  # 1 hour
+  max_failed_attempts: 3
+  lockout_duration: 300   # 5 minutes
+  ssh_key_path: "~/.ssh/authorized_keys"
+
+# Logging configuration
+logging:
+  level: "INFO"
+  file: "/var/log/skydash/skydash.log"
+  max_size: "10MB"
+  backup_count: 5
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  database_logging: true
+
+# Module configurations
+modules:
+  system_health:
+    refresh_interval: 5
+    cpu_threshold: 80
+    memory_threshold: 85
+    disk_threshold: 90
+    
+  email:
+    default_smtp_port: 587
+    default_smtp_security: "tls"
+    dns_servers: ["8.8.8.8", "1.1.1.1"]
+    max_queue_age_hours: 24
+    
+  portainer:
+    default_url: "http://localhost:9000"
+    api_timeout: 30
+    max_containers_per_page: 50
+    
+  vhosts:
+    nginx_config_path: "/etc/nginx"
+    ssl_cert_path: "/etc/ssl/certs"
+    ssl_key_path: "/etc/ssl/private"
+    default_ssl_port: 443
+    certificate_check_days: 30
+    
+  fix:
+    scan_directories:
+      - "/home"
+      - "/opt" 
+      - "/etc/nginx"
+      - "/var/www"
+    backup_before_fix: true
+    auto_fix_safe: true
+    backup_directory: "/var/backups/skydash"
+
+# Server monitoring
+monitoring:
+  enable_metrics: true
+  metrics_interval: 60
+  alert_thresholds:
+    cpu: 90
+    memory: 95
+    disk: 95
+    load: 5.0
+    
+# Security settings
+security:
+  require_ssl: false
+  allowed_ips: []
+  blocked_ips: []
+  enable_fail2ban_integration: true
+  
+# API settings (for future web interface)
+api:
+  host: "0.0.0.0"
+  port: 8080
+  cors_origins: ["http://localhost:3000"]
+  rate_limit: "100/hour"
+  
+# Email notifications
+notifications:
+  email:
+    enabled: false
+    smtp_server: "localhost"
+    smtp_port: 587
+    username: ""
+    password: ""
+    from_address: "skydash@localhost"
+    to_addresses: []
+    
+# Backup settings
+backup:
+  enabled: true
+  directory: "/var/backups/skydash"
+  retention_days: 30
+  include_database: true
+  
+# Development settings
+development:
+  reload_modules: true
+  show_debug_info: false
+  enable_profiling: false
